@@ -1,21 +1,21 @@
-
 import { Injectable } from '@nestjs/common';
+
 import { CreateUserDto } from '../dtos/users.dto';
+import { IUserService } from './iuser.service';
+import { User } from 'src/entities/users.entity';
+
 
 @Injectable()
-export class UsersService {
-  private users = [];
+export class UsersService implements IUserService {
+  private users: User[] = [];  
 
-  create(createUserDto: CreateUserDto) {
-    const user = { id: this.users.length + 1, ...createUserDto };
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const user: User = { id: Date.now(), ...createUserDto }; 
     this.users.push(user);
     return user;
   }
 
-  findAll() {
-    return {
-      port: process.env.NEST_PORT,
-      users: this.users
-    };
+  async findAll(): Promise<User[]> {
+    return this.users;
   }
 }
