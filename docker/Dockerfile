@@ -1,19 +1,13 @@
 FROM node:20
 
-ARG PORT
-
-ENV PORT=${PORT}
-
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN yarn
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
-EXPOSE ${PORT}
-
-CMD ["npm", "run", "start:dev"]
+CMD ["yarn", "start"]
