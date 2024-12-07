@@ -13,6 +13,9 @@ export class UsersService {
   }
 
   findAll() {
-    return this.users;
+    return {
+      port: process.env.NEST_PORT,
+      users: this.users
+    };
   }
 }

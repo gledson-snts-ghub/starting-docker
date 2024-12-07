@@ -1,6 +1,6 @@
-FROM node:20
+FROM node:20 AS dev
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
@@ -10,4 +10,18 @@ COPY . .
 
 RUN yarn build
 
-CMD ["yarn", "start"]
+CMD ["yarn", "start:dev"]
+
+FROM node:20 AS prod
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN yarn install --production
+
+COPY . .
+
+RUN yarn build
+
+CMD ["yarn", "start:prod"]
