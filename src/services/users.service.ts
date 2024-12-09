@@ -20,4 +20,12 @@ export class UsersService implements IUserService {
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
+
+  async getById(id: number): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new Error(`User with id ${id} not found`);
+    }
+    return user;
+  }
 }

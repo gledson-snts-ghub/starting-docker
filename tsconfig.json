@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -19,5 +19,5 @@
     "noFallthroughCasesInSwitch": false
   },
   "exclude": ["node_modules"],
-  "include": ["src", "env.d.ts"]
+  "include": ["src/**/*.ts", "env.d.ts"]
 }
