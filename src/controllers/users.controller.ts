@@ -20,7 +20,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  async findById(@Param('id') id: string) {
+  async findById(@Param('id') id: number) {
     const user = await this.userService.getById(id);
     return user;
   }

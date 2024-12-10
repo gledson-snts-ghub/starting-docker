@@ -7,7 +7,7 @@ import { User as UserDto } from '../dtos/users.dto';
 export interface IUserService {
   create(createUserDto: UserDto): Promise<User>;
   findAll(): Promise<User[]>;
-  getById(id: string): Promise<User>;
+  getById(id: number): Promise<User>;
 }
 
 @Injectable()
@@ -26,7 +26,7 @@ export class UsersService implements IUserService {
     return this.userRepository.find();
   }
 
-  async getById(id: string): Promise<User> {
+  async getById(id: number): Promise<User> {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new Error(`User with id ${id} not found`);

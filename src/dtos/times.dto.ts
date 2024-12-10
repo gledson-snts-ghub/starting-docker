@@ -5,7 +5,7 @@ import { Entity } from 'typeorm';
 export class CreateTimeDto {
   @IsNotEmpty()
   @IsNumber()
-  userId: string;
+  userId: number;
 
   @IsNotEmpty()
   @IsString()

@@ -31,7 +31,11 @@ export class TimeService {
     return this.timeRepository.save(time);
   }
 
-  async getAllTimeById(userId: string): Promise<Time[]> {
+  async getAllTimeById(userId: number): Promise<Time[]> {
     return this.timeRepository.find({ where: { userId } });
+  }
+
+  async getAllTimes(): Promise<Time[]> {
+    return this.timeRepository.find();
   }
 }

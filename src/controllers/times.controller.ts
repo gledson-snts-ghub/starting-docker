@@ -3,9 +3,14 @@ import { CreateTimeDto } from '../dtos/times.dto';
 import { Time } from '../entities/times.entity';
 import { TimeService } from '../services/time.service';
 
-@Controller('time')
+@Controller('times')
 export class TimeController {
   constructor(private readonly timeService: TimeService) {}
+
+  @Get()
+  async getAllTimes(): Promise<Time[]> {
+    return this.timeService.getAllTimes();
+  }
 
   @Post()
   async createTime(@Body() createTimeDto: CreateTimeDto): Promise<Time> {
@@ -13,7 +18,7 @@ export class TimeController {
   }
 
   @Get('user/:userId')
-  async getAllTimeByUserId(@Param('userId') userId: string): Promise<Time[]> {
+  async getAllTimeByUserId(@Param('userId') userId: number): Promise<Time[]> {
     return this.timeService.getAllTimeById(userId);
   }
 }

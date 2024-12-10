@@ -1,12 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('time')
+@Entity('times')
 export class Time {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
-  @Column({ type: 'varchar', length: 255 })
-  userId: string;
+  @Column({ type: Number })
+  userId: number;
 
   @Column({ type: 'varchar', length: 255 })
   date: string;
