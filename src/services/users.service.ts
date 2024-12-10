@@ -33,4 +33,12 @@ export class UsersService implements IUserService {
     }
     return user;
   }
+
+  async login(user_code: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ user_code });
+    if (!user) {
+      throw new Error(`User with user_code ${user_code} not found`);
+    }
+    return user;
+  }
 }

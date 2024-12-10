@@ -24,4 +24,10 @@ export class UsersController {
     const user = await this.userService.getById(id);
     return user;
   }
+
+  @Post('login')
+  async login(@Body() user_code: string) {
+    const user = await this.userService.login(user_code);
+    return user;
+  }
 }
