@@ -26,7 +26,7 @@ export class UsersController {
   }
 
   @Post('login')
-  async login(@Body() user_code: string) {
+  async login(@Body() { user_code }: { user_code: string }) {
     const user = await this.userService.login(user_code);
     return user;
   }
