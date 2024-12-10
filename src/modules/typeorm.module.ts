@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { env } from 'node:process';
+import { Time } from 'src/entities/times.entity';
 import { User } from 'src/entities/users.entity';
-import { Product } from '../entities/product.entity';
 
 if (!env.POSTGRES_USER || !env.POSTGRES_PASSWORD || !env.POSTGRES_DB) {
   throw new Error(
@@ -21,13 +21,13 @@ const typeOrmConfig: TypeOrmModuleOptions = {
   entities: [__dirname + '/../entities/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../migrations/**/*{.ts,.js}'],
   synchronize: false,
-  migrationsRun: true,
+  migrationsRun: false,
 };
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
-    TypeOrmModule.forFeature([User, Product]),
+    TypeOrmModule.forFeature([User, Time]),
   ],
 })
 export class TypeormModule {}

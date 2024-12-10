@@ -42,6 +42,7 @@ create-db-prod:
 		--network $(DOCKER_NETWORK) \
 		$(POSTGRES_IMAGE)
 
+
 run-db-dev:
 	docker start $(POSTGRES_NAME_DEV)
 
@@ -49,10 +50,12 @@ run-db-prod:
 	docker start $(POSTGRES_NAME_PROD)
 
 run-app-dev:
-	docker run -p $(DOCKER_PORT):$(DOCKER_PORT) \
+	docker run --rm -it \
+		-p $(DOCKER_PORT):$(DOCKER_PORT) \
 		-v $(shell pwd):$(DOCKER_VOLUME_PATH_DEV) \
 		--network $(DOCKER_NETWORK) \
 		$(DOCKER_IMAGE_NAME_DEV)
+		
 
 run-app-prod:
 	docker run -it -p $(DOCKER_PORT):$(DOCKER_PORT) \

@@ -10,7 +10,7 @@ COPY . .
 
 RUN yarn build
 
-CMD ["yarn", "start:dev"]
+CMD ["dockerize", "-wait", "tcp://db:5432", "-timeout", "30s", "yarn", "start:dev"]
 
 FROM node:20 AS prod
 
@@ -24,4 +24,4 @@ COPY . .
 
 RUN yarn build
 
-CMD ["yarn", "start:prod"]
+CMD ["dockerize", "-wait", "tcp://db:5432", "-timeout", "30s", "yarn", "start:prod"]

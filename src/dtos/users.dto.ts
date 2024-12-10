@@ -1,9 +1,10 @@
-import { IsString, IsInt } from 'class-validator';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-export class CreateUserDto {
-  @IsString()
-  name: string;
+@Entity('users')
+export class User {
+  @PrimaryGeneratedColumn()
+  id: string;
 
-  @IsInt()
-  age: number;
+  @Column({ type: 'varchar', length: 255, unique: true })
+  user_code: string;
 }
