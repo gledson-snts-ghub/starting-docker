@@ -24,4 +24,7 @@ COPY . .
 
 RUN yarn build
 
+# Rodar migrações no início
+RUN yarn migration:run
+
 CMD ["dockerize", "-wait", "tcp://db:5432", "-timeout", "30s", "yarn", "start:prod"]
