@@ -1,0 +1,74 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from '../entities/users.entity';
+import { UsersService } from './users.service';
+
+const mockUserRepository = {
+  create: jest.fn(),
+  save: jest.fn(),
+  findOneBy: jest.fn(),
+};
+
+describe('User service', () => {
+  let service: UsersService;
+  let userRepository: Repository<User>;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        UsersService,
+        { provide: getRepositoryToken(User), useValue: mockUserRepository },
+      ],
+    }).compile();
+
+    service = module.get(UsersService);
+    userRepository = module.get<Repository<User>>(getRepositoryToken(User));
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('Create user', () => {
+    it('should create the team successfully', async () => {
+      const user = { id: 1, user_code: '3f363g7u' };
+
+      mockUserRepository.create.mockReturnValue(user);
+      mockUserRepository.save.mockReturnValue(user);
+
+      const userCreated = await service.create(user);
+
+      expect(userRepository.create).toHaveBeenCalledWith(user);
+      expect(userCreated).toEqual(user);
+    });
+
+    it('should return error with user_code length 0', async () => {
+      const user = { id: 1, user_code: '' };
+
+      mockUserRepository.create.mockRejectedValue(user);
+      mockUserRepository.save.mockRejectedValue(user);
+
+      expect(service.create(user)).rejects.toThrow('User code not found');
+    });
+
+    it('should return error with user_code empty', async () => {
+      const user = { id: 1, user_code: undefined };
+
+      mockUserRepository.create.mockRejectedValue(user);
+      mockUserRepository.save.mockRejectedValue(user);
+
+      expect(service.create(user)).rejects.toThrow('User code not found');
+    });
+  });
+
+  describe('Get user by id', () => {
+    it('should throw an exception when the user is not found', async () => {
+      mockUserRepository.findOneBy.mockResolvedValue(undefined);
+
+      await expect(service.getById(1)).rejects.toThrow(
+        'User with id 1 not found',
+      );
+    });
+  });
+});

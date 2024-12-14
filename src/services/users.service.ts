@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/entities/users.entity';
 import { Repository } from 'typeorm';
 import { User as UserDto } from '../dtos/users.dto';
+import { User } from '../entities/users.entity';
 
 export interface IUserService {
   create(createUserDto: UserDto): Promise<User>;
   findAll(): Promise<User[]>;
   getById(id: number): Promise<User>;
+  login(user_code: string): Promise<User>;
 }
 
 @Injectable()
@@ -18,6 +19,9 @@ export class UsersService implements IUserService {
   ) {}
 
   async create(createUserDto: UserDto): Promise<User> {
+    if (!createUserDto.user_code || createUserDto.user_code.length === 0)
+      throw new Error(`User code not found`);
+
     const user = this.userRepository.create(createUserDto);
     return await this.userRepository.save(user);
   }
