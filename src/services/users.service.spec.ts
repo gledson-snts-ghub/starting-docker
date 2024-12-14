@@ -70,5 +70,40 @@ describe('User service', () => {
         'User with id 1 not found',
       );
     });
+
+    it('should return a user successfully', async () => {
+      const userMocked = {
+        id: 1,
+        user_code: 'saçlfj',
+      } as User;
+      mockUserRepository.findOneBy.mockResolvedValue(userMocked);
+
+      const user = await service.getById(1);
+
+      expect(user).toEqual(userMocked);
+    });
+  });
+
+  describe('Login', () => {
+    it('should return successfully', async () => {
+      const userMocked = {
+        id: 3,
+        user_code: 'yuf4',
+      } as User;
+
+      mockUserRepository.findOneBy.mockResolvedValue(userMocked);
+
+      const result = await service.login('yuf4');
+
+      expect(result.user_code).toEqual(userMocked.user_code);
+    });
+
+    it('should return error when user_code not found', async () => {
+      mockUserRepository.findOneBy.mockResolvedValue(undefined);
+
+      await expect(service.login('yuf5')).rejects.toThrow(
+        'User with user_code yuf5 not found',
+      );
+    });
   });
 });
