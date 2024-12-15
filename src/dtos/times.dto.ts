@@ -12,6 +12,6 @@ export class CreateTimeDto {
   date: string;
 
   @IsNotEmpty()
-  @IsNumber()
+  @IsString()
   hours_worked: string;
 }

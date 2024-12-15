@@ -1,7 +1,7 @@
+import { CreateTimeDto } from '->dtos/times.dto';
+import { Time } from '->entities/times.entity';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CreateTimeDto } from '../dtos/times.dto';
-import { Time } from '../entities/times.entity';
-import { TimeService } from '../services/time.service';
+import { TimeService } from '->services/times.service';
 
 @Controller('times')
 export class TimeController {

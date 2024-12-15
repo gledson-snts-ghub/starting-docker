@@ -1,9 +1,8 @@
+import { Time } from '->entities/times.entity';
+import { User } from '->entities/users.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-
 import { env } from 'node:process';
-import { Time } from 'src/entities/times.entity';
-import { User } from 'src/entities/users.entity';
 
 if (!env.POSTGRES_USER || !env.POSTGRES_PASSWORD || !env.POSTGRES_DB) {
   throw new Error(
@@ -12,8 +11,8 @@ if (!env.POSTGRES_USER || !env.POSTGRES_PASSWORD || !env.POSTGRES_DB) {
 }
 
 const typeOrmConfig: TypeOrmModuleOptions = {
-  type: env.POSTGRES_TYPE_NAME as any, // "postgres"
-  host: env.POSTGRES_HOST || 'localhost', // "postgres-container-dev"
+  type: env.POSTGRES_TYPE_NAME as any,
+  host: env.POSTGRES_HOST || 'localhost',
   port: parseInt(env.POSTGRES_PORT, 10) || 5432,
   username: env.POSTGRES_USER || 'postgres',
   password: env.POSTGRES_PASSWORD || 'password',

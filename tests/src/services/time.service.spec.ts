@@ -1,10 +1,10 @@
+import { CreateTimeDto } from '->dtos/times.dto';
+import { Time } from '->entities/times.entity';
+import { User } from '->entities/users.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { TimeService } from 'src/services/times.service';
 import { Repository } from 'typeorm';
-import { CreateTimeDto } from '../dtos/times.dto';
-import { Time } from '../entities/times.entity';
-import { User } from '../entities/users.entity';
-import { TimeService } from './time.service';
 
 const mockTimeRepository = {
   create: jest.fn(),

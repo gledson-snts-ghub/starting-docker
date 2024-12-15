@@ -13,6 +13,13 @@ Este projeto é o backend da aplicação de controle de ponto, desenvolvido com 
 
 Se você ainda não tem o Docker instalado, pode seguir a documentação oficial: [Instalar o Docker](https://docs.docker.com/get-docker/).
 
+- Instale o Yarn caso não tenha.
+   
+   ```bash
+   npm install --global yarn
+   ```
+
+
 ## Rodando o Backend
 
 Para rodar o projeto backend, siga os passos abaixo:
@@ -64,3 +71,17 @@ Para rodar o projeto backend, siga os passos abaixo:
    ```
 
    Isso irá criar as tabelas necessárias no banco de dados.
+
+## Rodando Testes
+
+1. **instale as dependências**
+
+   ```bash
+   yarn
+   ```
+
+2. **Rodar**
+
+   ```bash
+   yarn test
+   ```

@@ -1,10 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 
-@Entity('users')
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ type: 'varchar', length: 255, unique: true })
+export class CreateUserDto {
+  @IsNotEmpty()
+  @IsString()
+  @Length(1, 255)
   user_code: string;
 }

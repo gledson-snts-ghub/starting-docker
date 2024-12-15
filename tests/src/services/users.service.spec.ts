@@ -1,13 +1,14 @@
+import { User } from '->entities/users.entity';
+import { UsersService } from '->services/users.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../entities/users.entity';
-import { UsersService } from './users.service';
 
 const mockUserRepository = {
   create: jest.fn(),
   save: jest.fn(),
   findOneBy: jest.fn(),
+  find: jest.fn(),
 };
 
 describe('User service', () => {
@@ -104,6 +105,26 @@ describe('User service', () => {
       await expect(service.login('yuf5')).rejects.toThrow(
         'User with user_code yuf5 not found',
       );
+    });
+  });
+
+  describe('Find all', () => {
+    it('should return all users', async () => {
+      const users: User[] = [
+        { id: 1, user_code: 'asdf' },
+        {
+          id: 2,
+          user_code: 'asdg',
+        },
+        { id: 3, user_code: 'asdh' },
+      ];
+
+      mockUserRepository.find.mockResolvedValue(users);
+
+      const result = await service.findAll();
+
+      expect(result.length).toEqual(3);
+      expect(result).toEqual(users);
     });
   });
 });
