@@ -6,8 +6,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Time, User])],
-  providers: [TimeService],
-  controllers: [TimeController],
+    imports: [TypeOrmModule.forFeature([Time, User])],
+    providers: [TimeService],
+    controllers: [TimeController],
 })
 export class TimeModule {}

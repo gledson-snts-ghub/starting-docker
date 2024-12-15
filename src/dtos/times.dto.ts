@@ -3,15 +3,15 @@ import { Entity } from 'typeorm';
 
 @Entity('times')
 export class CreateTimeDto {
-  @IsNotEmpty()
-  @IsNumber()
-  userId: number;
+    @IsNotEmpty()
+    @IsNumber()
+    userId: number;
 
-  @IsNotEmpty()
-  @IsString()
-  date: string;
+    @IsNotEmpty()
+    @IsString()
+    date: string;
 
-  @IsNotEmpty()
-  @IsString()
-  hours_worked: string;
+    @IsNotEmpty()
+    @IsString()
+    hours_worked: string;
 }

@@ -4,30 +4,30 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+    constructor(private readonly userService: UsersService) {}
 
-  @Post()
-  async create(@Body() CreateUserDto: CreateUserDto) {
-    const user = await this.userService.create(CreateUserDto);
-    return user;
-  }
+    @Post()
+    async create(@Body() CreateUserDto: CreateUserDto) {
+        const user = await this.userService.create(CreateUserDto);
+        return user;
+    }
 
-  @Get()
-  async findAll() {
-    return {
-      users: await this.userService.findAll(),
-    };
-  }
+    @Get()
+    async findAll() {
+        return {
+            users: await this.userService.findAll(),
+        };
+    }
 
-  @Get(':id')
-  async findById(@Param('id') id: number) {
-    const user = await this.userService.getById(id);
-    return user;
-  }
+    @Get(':id')
+    async findById(@Param('id') id: number) {
+        const user = await this.userService.getById(id);
+        return user;
+    }
 
-  @Post('login')
-  async login(@Body() { user_code }: { user_code: string }) {
-    const user = await this.userService.login(user_code);
-    return user;
-  }
+    @Post('login')
+    async login(@Body() { user_code }: { user_code: string }) {
+        const user = await this.userService.login(user_code);
+        return user;
+    }
 }

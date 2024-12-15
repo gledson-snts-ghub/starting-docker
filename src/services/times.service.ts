@@ -7,35 +7,37 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class TimeService {
-  constructor(
-    @InjectRepository(Time)
-    private readonly timeRepository: Repository<Time>,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-  ) {}
+    constructor(
+        @InjectRepository(Time)
+        private readonly timeRepository: Repository<Time>,
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>,
+    ) {}
 
-  async createTime(createTimeDto: CreateTimeDto): Promise<Time> {
-    const { userId, date, hours_worked } = createTimeDto;
+    async createTime(createTimeDto: CreateTimeDto): Promise<Time> {
+        const { userId, date, hours_worked } = createTimeDto;
 
-    const user = await this.userRepository.findOne({ where: { id: userId } });
-    if (!user) {
-      throw new Error('Usuário não encontrado');
+        const user = await this.userRepository.findOne({
+            where: { id: userId },
+        });
+        if (!user) {
+            throw new Error('Usuário não encontrado');
+        }
+
+        const time = this.timeRepository.create({
+            userId,
+            date,
+            hours_worked,
+        });
+
+        return this.timeRepository.save(time);
     }
 
-    const time = this.timeRepository.create({
-      userId,
-      date,
-      hours_worked,
-    });
+    async getAllTimeById(userId: number): Promise<Time[]> {
+        return this.timeRepository.find({ where: { userId } });
+    }
 
-    return this.timeRepository.save(time);
-  }
-
-  async getAllTimeById(userId: number): Promise<Time[]> {
-    return this.timeRepository.find({ where: { userId } });
-  }
-
-  async getAllTimes(): Promise<Time[]> {
-    return this.timeRepository.find();
-  }
+    async getAllTimes(): Promise<Time[]> {
+        return this.timeRepository.find();
+    }
 }
