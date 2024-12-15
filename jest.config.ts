@@ -8,7 +8,7 @@ const config: Config = {
     moduleFileExtensions: ['ts', 'js', 'json'],
     rootDir: './',
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-        prefix: '<rootDir>/',
+        prefix: '<rootDir>/src/',
     }),
     testMatch: ['**/*.spec.ts'],
     collectCoverage: true,
